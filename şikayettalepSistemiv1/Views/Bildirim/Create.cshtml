@@ -1,0 +1,37 @@
+﻿@model SikayetProjesi.Models.Bildirim
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h4>📝 Yeni Şikayet / Talep Oluştur</h4>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Create" method="post">
+                        <div class="mb-3">
+                            <label class="form-label">Konu Başlığı</label>
+                            <input asp-for="Baslik" class="form-control" placeholder="Örn: İnternet kesintisi" required />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Açıklama</label>
+                            <textarea asp-for="Aciklama" class="form-control" rows="5" placeholder="Detayları buraya yazınız..." required></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Tür</label>
+                            <select asp-for="Durum" class="form-select">
+                                <option value="Şikayet">Şikayet</option>
+                                <option value="Talep">Talep</option>
+                                <option value="Öneri">Öneri</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="btn btn-success w-100">Gönder</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

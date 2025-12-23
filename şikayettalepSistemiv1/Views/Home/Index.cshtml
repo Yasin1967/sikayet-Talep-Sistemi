@@ -1,0 +1,111 @@
+﻿@{
+    ViewData["Title"] = "Ana Sayfa";
+}
+
+<style>
+    .hero-section {
+        background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%); /* Mavi degrade arka plan */
+        color: white;
+        padding: 80px 20px;
+        border-radius: 15px;
+        margin-bottom: 40px;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+
+    .feature-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border: none;
+        border-radius: 15px;
+        background-color: #f8f9fa;
+    }
+
+        .feature-card:hover {
+            transform: translateY(-10px); /* Üzerine gelince yukarı zıplasın */
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            background-color: #ffffff;
+        }
+
+    .icon-box {
+        font-size: 3rem;
+        margin-bottom: 15px;
+    }
+</style>
+
+<div class="hero-section text-center">
+    <h1 class="display-4 fw-bold mb-3">Şikayet ve Talep Yönetim Sistemi</h1>
+    <p class="lead mb-4" style="max-width: 700px; margin: 0 auto;">
+        Kurum içi istek, öneri ve arıza bildirimlerinizi saniyeler içinde bize iletin.
+        Süreçleri şeffaf bir şekilde takip edin, çözüme ortak olun.
+    </p>
+
+    <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+        <a href="/Bildirim/Create" class="btn btn-light btn-lg px-5 gap-3 fw-bold">
+            📝 Hemen Bildirim Oluştur
+        </a>
+        @if (!User.Identity.IsAuthenticated)
+        {
+            <a href="/Login/GirisYap" class="btn btn-outline-light btn-lg px-5">
+                🔐 Yönetici Girişi
+            </a>
+        }
+        else
+        {
+            <a href="/Bildirim/Index" class="btn btn-outline-light btn-lg px-5">
+                📋 Yönetim Paneli
+            </a>
+        }
+    </div>
+</div>
+
+<div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+
+    <div class="col">
+        <div class="feature-card p-4 h-100 text-center">
+            <div class="icon-box">🚀</div>
+            <h3 class="fs-4 text-primary">Hızlı Çözüm</h3>
+            <p>
+                Talepleriniz anında ilgili birimlere iletilir ve çözüm süreci
+                hiç vakit kaybetmeden başlatılır.
+            </p>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="feature-card p-4 h-100 text-center">
+            <div class="icon-box">🔍</div>
+            <h3 class="fs-4 text-primary">Şeffaf Takip</h3>
+            <p>
+                Bildiriminizin hangi aşamada olduğunu, kimin ilgilendiğini
+                ve sonucunu kolayca takip edebilirsiniz.
+            </p>
+        </div>
+    </div>
+
+    <div class="col">
+        <div class="feature-card p-4 h-100 text-center">
+            <div class="icon-box">✅</div>
+            <h3 class="fs-4 text-primary">Sonuç Odaklı</h3>
+            <p>
+                Amacımız sadece kaydetmek değil, çözmek. Memnuniyetiniz
+                bizim için en önemli başarı kriteridir.
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="container text-center py-4 border-top">
+    <div class="row">
+        <div class="col-md-4">
+            <h2 class="fw-bold text-dark">7/24</h2>
+            <p class="text-muted">Kesintisiz Destek</p>
+        </div>
+        <div class="col-md-4">
+            <h2 class="fw-bold text-dark">%100</h2>
+            <p class="text-muted">Geri Dönüş Oranı</p>
+        </div>
+        <div class="col-md-4">
+            <h2 class="fw-bold text-dark">Güvenli</h2>
+            <p class="text-muted">Kişisel Veri Koruması</p>
+        </div>
+    </div>
+</div>

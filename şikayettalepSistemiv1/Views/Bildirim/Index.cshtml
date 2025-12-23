@@ -1,0 +1,131 @@
+﻿@model IEnumerable<SikayetProjesi.Models.Bildirim>
+
+@{
+    ViewData["Title"] = "Yönetim Paneli";
+    Layout = "_AdminLayout";
+
+    var toplamSayi = Model.Count();
+    var bekleyenSayi = Model.Count(x => x.Durum == "Bekliyor");
+    var tamamlananSayi = Model.Count(x => x.Durum != "Bekliyor");
+}
+
+<div class="container-fluid mt-4">
+    <div class="row">
+
+        <div class="col-12">
+
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+                <h1 class="h2">Yönetim Paneli</h1>
+                <div class="btn-toolbar mb-2 mb-md-0">
+                    <div class="btn-group me-2">
+                        <a href="/Bildirim/ExportToExcel" class="btn btn-sm btn-outline-success">
+                            <i class="fas fa-file-excel"></i> Dışa Aktar (Excel)
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col-md-4">
+                    <div class="card text-white bg-primary shadow-sm h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h5 class="card-title">Toplam Bildirim</h5>
+                                    <p class="card-text display-4 fw-bold">@toplamSayi</p>
+                                </div>
+                                <i class="fas fa-clipboard-list fa-3x opacity-50"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-white bg-warning shadow-sm h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h5 class="card-title">Bekleyen İşler</h5>
+                                    <p class="card-text display-4 fw-bold">@bekleyenSayi</p>
+                                </div>
+                                <i class="fas fa-hourglass-half fa-3x opacity-50"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-white bg-success shadow-sm h-100">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <h5 class="card-title">Çözülenler</h5>
+                                    <p class="card-text display-4 fw-bold">@tamamlananSayi</p>
+                                </div>
+                                <i class="fas fa-check-circle fa-3x opacity-50"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card shadow-sm">
+                <div class="card-header bg-white py-3">
+                    <h5 class="mb-0 text-primary">
+                        <i class="fas fa-table"></i> Gelen Talepler Listesi
+                    </h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Tarih</th>
+                                    <th>Başlık</th>
+                                    <th>Durum</th>
+                                    <th class="text-end">İşlemler</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td><strong>#@item.Id</strong></td>
+                                        <td>@item.OlusturulmaTarihi.ToString("dd.MM.yyyy HH:mm")</td>
+                                        <td>
+                                            <span class="fw-bold text-dark">@item.Baslik</span><br />
+                                            <small class="text-muted">@item.Aciklama.Substring(0, Math.Min(item.Aciklama.Length, 60))...</small>
+                                        </td>
+                                        <td>
+                                            @if (item.Durum == "Bekliyor")
+                                            {
+                                                <span class="badge bg-warning text-dark px-3 py-2 rounded-pill">Bekliyor</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge bg-success px-3 py-2 rounded-pill">Tamamlandı</span>
+                                            }
+                                        </td>
+                                        <td class="text-end">
+                                            <a href="/Bildirim/Details/@item.Id" class="btn btn-sm btn-outline-primary">
+                                                <i class="fas fa-search"></i> İncele
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+
+                    @if (!Model.Any())
+                    {
+                        <div class="alert alert-info text-center mt-3 p-4">
+                            <i class="fas fa-info-circle fa-2x mb-2"></i><br />
+                            Şu an bekleyen veya geçmiş bir kayıt bulunmamaktadır.
+                        </div>
+                    }
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

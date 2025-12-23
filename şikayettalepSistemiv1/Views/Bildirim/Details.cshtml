@@ -1,0 +1,64 @@
+﻿@model SikayetProjesi.Models.Bildirim
+
+@{
+    ViewData["Title"] = "Talep Detayı";
+    Layout = "_AdminLayout";
+}
+
+<div class="container mt-4">
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">📋 Talep Detayı (#@Model.Id)</h5>
+            <span class="badge bg-light text-primary">@Model.OlusturulmaTarihi.ToString("dd.MM.yyyy HH:mm")</span>
+        </div>
+        <div class="card-body">
+
+            <div class="row mb-4">
+                <div class="col-md-3 text-muted fw-bold">Konu Başlığı:</div>
+                <div class="col-md-9 fs-5">@Model.Baslik</div>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col-md-3 text-muted fw-bold">Açıklama:</div>
+                <div class="col-md-9">
+                    <div class="p-3 bg-light rounded border">
+                        @Model.Aciklama
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col-md-3 text-muted fw-bold">Mevcut Durum:</div>
+                <div class="col-md-9">
+                    @if (Model.Durum == "Bekliyor")
+                    {
+                        <span class="badge bg-warning text-dark px-3 py-2">⏳ Bekliyor</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-success px-3 py-2">✅ Tamamlandı</span>
+                    }
+                </div>
+            </div>
+
+            <hr />
+
+            <div class="d-flex justify-content-end gap-2">
+                <a href="/Bildirim/Index" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Geri Dön
+                </a>
+
+                @if (Model.Durum == "Bekliyor")
+                {
+                    <form asp-action="DurumGuncelle" method="post">
+                        <input type="hidden" name="id" value="@Model.Id" />
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-check"></i> Çözüldü Olarak İşaretle
+                        </button>
+                    </form>
+                }
+            </div>
+
+        </div>
+    </div>
+</div>
